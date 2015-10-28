@@ -198,9 +198,20 @@
 			roda();
 		}
 
+		//Loop principal
 		function roda() {
 			atualiza();
 			desenha();
+
+			if (estadoAtual == estados.perdeu) {
+				backgroundAudio.pause();
+				gameOverAudio.play();
+			}
+
+			if (estadoAtual == estados.jogar) {
+				backgroundAudio.play(); //pode usar resume() se quiser
+				gameOverAudio.pause();
+			}
 
 			window.requestAnimationFrame(roda);
 		}
@@ -249,6 +260,22 @@
 					
 		}
 
+		console.log('estou aqui');
+		var backgroundAudio = new Audio("sounds/kick_shock.wav");
+		backgroundAudio.loop = true;
+		backgroundAudio.volume = .10;
+		backgroundAudio.load();
+
+		var gameOverAudio = new Audio("sounds/game_over.wav");
+		gameOverAudio.loop = true;
+		gameOverAudio.volume = .10;
+		gameOverAudio.load();
+
+		gameOverAudio.pause();
+		backgroundAudio.play();
+
+		console.log(gameOverAudio.readyState);
+		console.log(backgroundAudio.readyState);
 		//inicializa o jogo
 		main();
 	</script>
